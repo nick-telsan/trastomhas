@@ -1,0 +1,27 @@
+module.exports = {
+  parser: '@typescript-eslint/parser',
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
+    'plugin:@next/next/recommended',
+  ],
+  parserOptions: {
+    extends: ['./tsconfig.json'],
+    ecmaVersion: 2018,
+    sourceType: 'module',
+  },
+  rules: {
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+}

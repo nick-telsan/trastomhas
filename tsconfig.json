@@ -17,13 +17,7 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": "./src"
-    },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "../*.js",
-    "../src/**/*.js"
-  ],
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".eslintrc.js"],
   "exclude": ["node_modules"]
 }
