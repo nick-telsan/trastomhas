@@ -1,21 +1,11 @@
-import { z } from 'zod'
-import { procedure, router } from './trpc'
+import { authRouter } from './modules/auth/router'
+import { publicProcedure, router } from './trpc'
 
 export const appRouter = router({
-  healthcheck: procedure.query(() => {
+  healthcheck: publicProcedure.query(() => {
     return 'Healthy'
   }),
-  mutationCheck: procedure
-    .input(
-      z.object({
-        text: z.string(),
-      })
-    )
-    .mutation(async ({ input }) => {
-      const result = input.text.toLocaleUpperCase()
-
-      return result
-    }),
+  auth: authRouter,
 })
 
 export type AppRouter = typeof appRouter

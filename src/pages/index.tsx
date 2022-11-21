@@ -2,9 +2,10 @@ import { trpc } from 'core/trpc'
 import React, { useRef } from 'react'
 
 const Root = () => {
-  const inputRef = useRef<HTMLInputElement>(null)
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passwordRef = useRef<HTMLInputElement>(null)
   const hello = trpc.healthcheck.useQuery()
-  const input = trpc.mutationCheck.useMutation()
+  const createAccount = trpc.auth.signUp.useMutation()
 
   if (!hello.data) {
     return <div>Loading...</div>
@@ -13,24 +14,29 @@ const Root = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (!inputRef.current?.value) {
+    if (!(emailRef.current?.value && passwordRef.current?.value)) {
       console.error('Invalid input')
       return
     }
 
-    input.mutate({ text: inputRef.current.value })
+    createAccount.mutate({
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    })
   }
 
   return (
     <div>
       <h3>{hello.data}</h3>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="input">Type a word</label>
-        <input id="input" ref={inputRef} />
+        <label htmlFor="email">Email</label>
+        <input id="email" type="email" ref={emailRef} />
+        <label htmlFor="password">Password</label>
+        <input id="password" type="password" ref={passwordRef} />
         <button type="submit">Submit</button>
       </form>
 
-      {input.data && <div>{input.data}</div>}
+      {createAccount.data && <div>{createAccount.data.email}</div>}
     </div>
   )
 }
